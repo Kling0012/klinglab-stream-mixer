@@ -1,0 +1,179 @@
+{
+  "Name": "Klinglab Stream Mixer",
+  "Version": "0.1.0.0",
+  "Author": "Klinglab",
+  "Description": "Control Klinglab Stream Mixer effects, projects, sounds and loudness on macOS.",
+  "UUID": "site.klinglab.streammixer",
+  "SDKVersion": 3,
+  "Software": {
+    "MinimumVersion": "7.1"
+  },
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "14.4"
+    }
+  ],
+  "Nodejs": {
+    "Version": "24"
+  },
+  "CodePath": "bin/plugin.js",
+  "Category": "Klinglab Stream Mixer",
+  "CategoryIcon": "imgs/category",
+  "Icon": "imgs/plugin",
+  "Actions": [
+    {
+      "Name": "FX On/Off",
+      "UUID": "site.klinglab.streammixer.fx",
+      "Tooltip": "FX CHAIN の番号1〜9のバイパスを切り替えます。",
+      "Icon": "imgs/fx",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/fx-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "Project",
+      "UUID": "site.klinglab.streammixer.project",
+      "Tooltip": "番号1〜9に登録したプロジェクトを呼び出します。",
+      "Icon": "imgs/project",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/project-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "STREAM FX On/Off",
+      "UUID": "site.klinglab.streammixer.streamfx",
+      "Tooltip": "STREAM FX のバイパスを切り替えます。",
+      "Icon": "imgs/streamfx",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/streamfx-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "BGM",
+      "UUID": "site.klinglab.streammixer.bgm",
+      "Tooltip": "指定した番号の BGM を再生・停止します。",
+      "Icon": "imgs/bgm",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/bgm-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "SE",
+      "UUID": "site.klinglab.streammixer.se",
+      "Tooltip": "指定した番号の効果音を再生・停止します。",
+      "Icon": "imgs/se",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/se-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "Stop Sounds",
+      "UUID": "site.klinglab.streammixer.stop",
+      "Tooltip": "BGM・SE・両方のいずれかを停止します。",
+      "Icon": "imgs/stop",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/stop-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "LOUD On/Off",
+      "UUID": "site.klinglab.streammixer.loud",
+      "Tooltip": "LOUD を切り替えます。",
+      "Icon": "imgs/loud",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/loud-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "LOUD Learn",
+      "UUID": "site.klinglab.streammixer.learn",
+      "Tooltip": "LOUD の測定を開始・終了します。",
+      "Icon": "imgs/learn",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/learn-key",
+          "ShowTitle": false
+        }
+      ]
+    },
+    {
+      "Name": "LOUD Mode",
+      "UUID": "site.klinglab.streammixer.mode",
+      "Tooltip": "LOUD の STREAM と CD を切り替えます。",
+      "Icon": "imgs/mode",
+      "PropertyInspectorPath": "ui/settings.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "DisableAutomaticStates": true,
+      "States": [
+        {
+          "Image": "imgs/mode-key",
+          "ShowTitle": false
+        }
+      ]
+    }
+  ]
+}

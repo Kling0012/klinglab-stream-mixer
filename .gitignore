@@ -1,0 +1,9 @@
+build/
+build-*/
+.cache/
+*.dmg
+*.pkg
+dist/
+node_modules/
+.DS_Store
+.claude/

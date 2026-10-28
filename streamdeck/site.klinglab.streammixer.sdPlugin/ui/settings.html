@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Klinglab Stream Mixer</title>
+    <style>
+        :root { color-scheme: dark; font: 13px system-ui, sans-serif; }
+        body { margin: 18px; color: #ededed; background: #292929; }
+        h1 { font-size: 15px; margin: 0 0 18px; }
+        label { display: block; margin-bottom: 8px; }
+        input, select { box-sizing: border-box; width: 100%; padding: 8px; font: inherit; border: 1px solid #777; border-radius: 4px; }
+        input:focus, select:focus { outline: 2px solid #f5a33a; outline-offset: 2px; }
+        p { line-height: 1.65; color: #c9c9c9; }
+        #error { color: #ffb5b5; }
+        [hidden] { display: none !important; }
+    </style>
+</head>
+<body>
+    <h1 id="heading">Klinglab Stream Mixer</h1>
+    <form id="form">
+        <div id="number-field" hidden>
+            <label for="number">番号</label>
+            <input id="number" type="number" min="1" step="1" inputmode="numeric" aria-describedby="hint error">
+            <p id="hint"></p>
+        </div>
+        <div id="kind-field" hidden>
+            <label for="kind">停止する音</label>
+            <select id="kind"><option value="all">BGM と SE</option><option value="bgm">BGM</option><option value="se">SE</option></select>
+        </div>
+    </form>
+    <p id="fixed" hidden>このアクションに設定項目はありません。</p>
+    <p id="error" role="status" hidden></p>
+    <p>ミキサーを起動すると、ボタンに現在の状態が表示されます。空番号は「-」、接続前は MIXER OFF と表示されます。</p>
+    <script src="settings.js"></script>
+</body>
+</html>

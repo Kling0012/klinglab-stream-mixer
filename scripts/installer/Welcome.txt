@@ -1,0 +1,7 @@
+Klinglab Stream Mixer には、アプリと OBS プラグインが含まれています。
+
+アプリは /Applications に、OBS プラグインはインストールする利用者の ~/Library/Application Support/obs-studio/plugins/ に配置します。OBS を起動している場合は、インストール後に再起動してください。
+
+Stream Deck プラグインを同梱した配布物では、ミキサーのメニュー「Stream Deck の使い方」から追加できます。Stream Deck を使わない場合は、追加する必要はありません。
+
+この配布物は ad-hoc 署名です。初回起動を止められたときは、Finder でアプリを右クリックして「開く」を選ぶか、「システム設定 → プライバシーとセキュリティ → このまま開く」を使ってください。

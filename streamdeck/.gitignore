@@ -1,0 +1,8 @@
+node_modules/
+dist/
+site.klinglab.streammixer.sdPlugin/bin/
+site.klinglab.streammixer.sdPlugin/imgs/
+site.klinglab.streammixer.sdPlugin/logs/
+site.klinglab.streammixer.sdPlugin/LICENSES.txt
+site.klinglab.streammixer.sdPlugin/README.txt
+verification-output/

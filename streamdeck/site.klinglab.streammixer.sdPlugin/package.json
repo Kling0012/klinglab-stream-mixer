@@ -1,0 +1,7 @@
+{
+  "name": "site.klinglab.streammixer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "license": "AGPL-3.0-only"
+}

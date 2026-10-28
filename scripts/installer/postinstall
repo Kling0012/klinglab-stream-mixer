@@ -1,0 +1,79 @@
+#!/bin/bash
+set -euo pipefail
+script_dir="$(cd -- "$(dirname -- "$0")" && pwd)"
+source "$script_dir/user-home.sh"
+verify_placement=false
+if [[ "${1:-}" == --verify-placement ]]; then
+    # Exercise placement in an extracted payload without touching the live installation.
+    [[ $# == 3 && "$(/usr/bin/id -u)" != 0 && "$2" == /* && "$3" == /* && -d "$3" ]]
+    verify_placement=true
+    app="$2"
+    verification_home="$3"
+fi
+if ! ksm_resolve_user; then
+    printf 'No recipient user found; install the OBS plugin from the mixer tutorial after signing in.\n' >&2
+    exit 0
+fi
+volume="${3:-/}"
+if "$verify_placement"; then volume=/; fi
+if [[ "$volume" != / ]]; then
+    printf 'Offline volume: install the OBS plugin from the mixer tutorial after booting that volume.\n'
+    exit 0
+fi
+if "$verify_placement"; then
+    KSM_HOME="$verification_home"
+else
+    app="/Applications/Klinglab Stream Mixer.app"
+fi
+resources="$app/Contents/Resources"
+recipient_support="$KSM_HOME/Library/Application Support"
+plugin_dir="$recipient_support/obs-studio/plugins"
+plugin="$plugin_dir/klinglab-stream-mixer-source.plugin"
+archive="$recipient_support/Klinglab Stream Mixer/archive/install-$(date +%Y%m%d-%H%M%S)-$$"
+run_as_recipient() {
+    if [[ "$(/usr/bin/id -u)" == 0 ]]; then
+        /usr/bin/sudo -H -u "$KSM_USER" -- "$@"
+    else
+        "$@"
+    fi
+}
+install_obs() {
+    [[ -f "$resources/klinglab-stream-mixer-source.zip" ]] || return 1
+    run_as_recipient /bin/mkdir -p "$plugin_dir" "$archive" || return 1
+    run_as_recipient /usr/bin/ditto -x -k "$resources/klinglab-stream-mixer-source.zip" "$archive/staging" || return 1
+    local staged="$archive/staging/klinglab-stream-mixer-source.plugin"
+    run_as_recipient /usr/bin/codesign --verify --strict "$staged" || return 1
+    if [[ -e "$plugin" ]]; then
+        run_as_recipient /bin/mv "$plugin" "$archive/" || return 1
+    fi
+    if ! run_as_recipient /bin/mv "$staged" "$plugin"; then
+        if [[ -d "$archive/klinglab-stream-mixer-source.plugin" && ! -e "$plugin" ]]; then
+            run_as_recipient /bin/mv "$archive/klinglab-stream-mixer-source.plugin" "$plugin" || true
+        fi
+        return 1
+    fi
+    printf 'OBS plugin installed for %s at %s\n' "$KSM_USER" "$plugin"
+}
+if ! install_obs; then
+    printf 'OBS plugin installation failed; use the mixer tutorial to install it.\n' >&2
+    if "$verify_placement"; then exit 1; fi
+fi
+if "$verify_placement"; then exit 0; fi
+notice=""
+if /usr/bin/pgrep -x OBS >/dev/null; then
+    notice='OBS を再起動してください。'
+fi
+if [[ -f "$resources/site.klinglab.streammixer.streamDeckPlugin" && ( -d '/Applications/Stream Deck.app' || -d "$KSM_HOME/Applications/Stream Deck.app" ) ]]; then
+    notice="$notice ミキサーのメニュー「Stream Deck の使い方」からプラグインを追加できます。"
+fi
+if [[ -n "$notice" ]]; then
+    printf '%s\n' "$notice"
+    # A failed GUI notification must not fail installation.
+    if [[ "$(/usr/bin/id -u)" == 0 ]]; then
+        /bin/launchctl asuser "$KSM_UID" /usr/bin/sudo -H -u "$KSM_USER" /usr/bin/osascript -e \
+            "display notification \"$notice\" with title \"Klinglab Stream Mixer\"" || true
+    else
+        /usr/bin/osascript -e "display notification \"$notice\" with title \"Klinglab Stream Mixer\"" || true
+    fi
+fi
+exit 0

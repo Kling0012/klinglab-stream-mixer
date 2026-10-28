@@ -1,0 +1,26 @@
+{
+  "name": "klinglab-stream-mixer-streamdeck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "engines": { "node": ">=20.5.1" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "mock": "node mock-server/server.mjs",
+    "validate": "streamdeck validate site.klinglab.streammixer.sdPlugin --no-update-check",
+    "pack": "bash scripts/pack.sh"
+  },
+  "dependencies": {
+    "@elgato/streamdeck": "3.0.3",
+    "ws": "8.21.0"
+  },
+  "overrides": {
+    "@elgato/utils": { "zod": "4.6.7" }
+  },
+  "devDependencies": {
+    "@elgato/cli": "1.10.3",
+    "@resvg/resvg-js": "2.6.2",
+    "esbuild": "0.25.12"
+  }
+}
